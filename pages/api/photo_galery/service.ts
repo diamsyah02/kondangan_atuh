@@ -6,7 +6,7 @@ export async function s_get() {
   try {
     const result = await r_get()
     if('error' in result) return wr(500, `Opss something's wrong!`, result)
-    return wr(200, `Get data invitation success`, result)
+    return wr(200, `Get data gallery photo success`, result)
   } catch (error: any) {
     return wr(500, `Opss something's wrong!`, error)
   }
@@ -16,7 +16,7 @@ export async function s_getDetail(id: number) {
   try {
     const result = await r_getDetail(id)
     if('error' in result) return wr(500, `Opss something's wrong!`, result)
-    return wr(200, `Get data invitation with id ${id} success`, result)
+    return wr(200, `Get data gallery photo with id ${id} success`, result)
   } catch (error: any) {
     return wr(500, `Opss something's wrong!`, error)
   }
@@ -26,7 +26,7 @@ export async function s_store(req: Request) {
   try {
     const result = await r_store(req)
     if('error' in result) return wr(500, `Opss something's wrong!`, result)
-    return wr(200, `Insert data invitation success`, result)
+    return wr(200, `Insert data gallery photo success`, result)
   } catch (error: any) {
     return wr(500, `Opss something's wrong!`, error)
   }
@@ -35,7 +35,7 @@ export async function s_update(req: Request, id: number) {
   try {
     const result = await r_update(req, id)
     if('error' in result) return wr(500, `Opss something's wrong!`, result)
-    return wr(200, `Update data invitation with id ${id} success`, result)
+    return wr(200, `Update data gallery photo with id ${id} success`, result)
   } catch (error: any) {
     return wr(500, `Opss something's wrong!`, error)
   }
@@ -45,7 +45,7 @@ export async function s_remove(id: number) {
   try {
     const result = await r_delete(id)
     if('error' in result) return wr(500, `Opss something's wrong!`, result)
-    return wr(200, 'Delete data invitation success', result)
+    return wr(200, 'Delete data gallery photo success', result)
   } catch (error: any) {
     return wr(500, `Opss something's wrong!`, error)
   }

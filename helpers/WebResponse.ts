@@ -1,4 +1,4 @@
-const wr = (statusCode: number, message: string, result: any[]) => {
+const wr = (statusCode: number, message: string, result: any) => {
   const data = {
     statusCode: statusCode,
     message: message,
