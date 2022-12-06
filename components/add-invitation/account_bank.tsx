@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react'
 
-const AccountBank = () => {
+const AccountBank = (props: any) => {
   const [showForm, setShowForm] = useState(false)
   return (
     <>
@@ -16,6 +16,7 @@ const AccountBank = () => {
               <input
                 type="text"
                 className="form-control block w-full px-4 py-2 font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none mt-2"
+                onChange={(text) => props.accName(text.target.value)}
               />
             </div>
             <div className="mb-3 mt-3">
@@ -23,6 +24,7 @@ const AccountBank = () => {
               <input
                 type="tel"
                 className="form-control block w-full px-4 py-2 font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none mt-2"
+                onChange={(text) => props.accNo(text.target.value)}
               />
             </div>
           </form>

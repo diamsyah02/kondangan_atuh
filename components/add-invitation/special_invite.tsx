@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react'
 
-const SpecialInvite = () => {
+const SpecialInvite = (props: any) => {
   const [formValues, setFormValues] = useState([{ special_invite: "" }])
   const [showForm, setShowForm] = useState(false)
 
@@ -19,6 +19,7 @@ const SpecialInvite = () => {
     let newFormValues = [...formValues]
     newFormValues.splice(i, 1)
     setFormValues(newFormValues)
+    props.removeList(i)
   }
 
   return (
@@ -37,6 +38,7 @@ const SpecialInvite = () => {
                     type="text"
                     className="form-control block w-full px-4 py-2 font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none mt-2"
                     placeholder='Nama'
+                    onChange={(text) => props.listSpecialInvite(text.target.value)}
                   />
                 </div>
                 {
