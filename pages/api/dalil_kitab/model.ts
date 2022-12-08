@@ -1,6 +1,7 @@
 type Request = {
   id_invitation: number,
-  ayat: string,
+  sumber: string,
+  isi: string
 }
 
 export default Request

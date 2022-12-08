@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { auth } from '@/helpers/ConsumeApi'
 import { setCookie } from 'cookies-next'
+import baseURL from '@/lib/constant'
 
 const Page = () => {
   const [email, setEmail] = useState('nanda@gmail.com')
@@ -17,10 +18,10 @@ const Page = () => {
       email: email,
       password: password
     }
-    let res = await auth(`http://localhost:3000/api/users?action=login`, body)
+    let res = await auth(`${baseURL}users?action=login`, body)
     if(res.statusCode == 200) {
       router.replace('/')
-      setCookie('auth_kondangan', res.result.token)
+      setCookie('auth_kondangan', res.result)
     }
   }
   return (

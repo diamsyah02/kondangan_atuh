@@ -13,8 +13,10 @@ const Page = () => {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
   useEffect(() => {
-    if (getCookie('auth_kondangan') === undefined) router.replace('login')
-    else setLoading(false)
+    const cookie: any = getCookie('auth_kondangan')
+    if (cookie === undefined) return router.replace('login')
+    console.log(JSON.parse(cookie))
+    setLoading(false)
   }, [])
   return (
     <>

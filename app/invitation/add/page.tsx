@@ -10,51 +10,57 @@ import Sidebar from "@/components/sidebar"
 import { useRouter } from "next/navigation"
 import Loading from "@/components/loading"
 import { getCookie } from "cookies-next"
+import { postData } from "@/helpers/ConsumeApi"
+import baseURL from "@/lib/constant"
 
 const Page = () => {
   const [loading, setLoading] = useState(true)
   // invitation
-  const [receptionDate, setReceptionDate] = useState('')
-  const [place, setPlace] = useState('')
+  const [invitation, setInvitation] = useState({ id_user: 0, reception_date: '', place: '' })
   // special invite
   const [listSpecialInvite, setListSpecialInvite] = useState<string[]>([])
   // dalil kitab
-  const [sumber, setSumber] = useState('')
-  const [isi, setIsi] = useState('')
+  const [dalilKitab, setDalilKitab] = useState({ id_invitation: 0, sumber: '', isi: '' })
   // bride
   const [man, setMan] = useState('')
   const [woman, setWoman] = useState('')
   const [parentMan, setParentMan] = useState({ mother: '', father: '' })
   const [parentWoman, setParentWoman] = useState({ mother: '', father: '' })
   // account bank
-  const [accName, setAccName] = useState('')
-  const [accNo, setAccNo] = useState('')
+  const [accountBank, setAccountBank] = useState({ id_invitation: 0, acc_name: '', acc_no: '' })
   // gallery photo
   const [photo, setPhoto] = useState<string[]>([])
   const router = useRouter()
   useEffect(() => {
-    if (getCookie('auth_kondangan') === undefined) router.replace('login')
-    else setLoading(false)
+    const cookie: any = getCookie('auth_kondangan')
+    if (cookie === undefined) return router.replace('login')
+    const cookie_parse = JSON.parse(cookie)
+    setInvitation({ id_user: cookie_parse.data[0].id, reception_date: ``, place: `` })
+    setLoading(false)
   }, [])
 
-  function onSave() {
-    alert(JSON.stringify(parentMan))
+  async function onSave() {
+    const cookie: any = getCookie('auth_kondangan')
+    const resInvitation = await postData(`${baseURL}invitation`, invitation)
+    if(resInvitation) {
+
+    }
   }
   return (
     <>
       {loading ?
         <Loading />
         :
-        <div className='flex flex-1 h-screen'>
+        <div className='flex flex-wrap h-screen overflow-y-auto'>
           <div className='hidden md:block w-1/5'>
             <Sidebar />
           </div>
           <div className='w-full md:w-4/5 p-5 overflow-auto'>
-            <div className="flex flex-1 space-x-3">
+            <div className="flex flex-wrap space-x-3">
               <div className="w-full md:w-1/2">
                 <Invitation 
-                  receptionDate={(text: string) => setReceptionDate(text)}
-                  place={(text: string) => setPlace(text)}
+                  receptionDate={(text: string) => setInvitation({ id_user: invitation.id_user, reception_date: text, place: `` })}
+                  place={(text: string) => setInvitation({ id_user: invitation.id_user, reception_date: invitation.reception_date, place: text })}
                 />
                 <SpecialInvite
                   listSpecialInvite={(text:string) => setListSpecialInvite([...listSpecialInvite, text])}
@@ -65,8 +71,8 @@ const Page = () => {
                   }}
                 />
                 <DalilKitab
-                  sumber={(text: string) => setSumber(text)}
-                  isi={(text: string) => setIsi(text)}
+                  sumber={(text: string) => setDalilKitab({ id_invitation: dalilKitab.id_invitation, sumber: text, isi: `` })}
+                  isi={(text: string) => setDalilKitab({ id_invitation: dalilKitab.id_invitation, sumber: dalilKitab.sumber, isi: text })}
                 />
               </div>
               <div className="w-full md:w-1/2">
@@ -79,8 +85,8 @@ const Page = () => {
                   fatherWoman={(text: string) => setParentWoman({ mother: parentWoman.mother, father: text })}
                 />
                 <AccountBank 
-                  accName={(text: string) => setAccName(text)}
-                  accNo={(text: string) => setAccNo(text)}
+                  accName={(text: string) => setAccountBank({ id_invitation: 0, acc_name: text, acc_no: '' })}
+                  accNo={(text: string) => setAccountBank({ id_invitation: 0, acc_name: accountBank.acc_name, acc_no: text })}
                 />
                 <PhotoGallery
                   photo={(file: any) => setPhoto([...photo, file[0]])}

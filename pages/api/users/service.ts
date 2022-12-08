@@ -12,7 +12,7 @@ export async function s_login(req: Request) {
         token: 'async__await',
         data: result
       }
-      return wr(200, 'Login success', result)
+      return wr(200, 'Login success', data)
     }
     else return wr(400, 'Login failed because email & password is wrong', result)
   } catch(error: any) {
